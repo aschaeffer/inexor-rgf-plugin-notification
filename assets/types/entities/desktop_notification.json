@@ -1,0 +1,125 @@
+{
+  "name": "desktop_notification",
+  "group": "hardware",
+  "description": "Desktop Notification",
+  "components": [
+    "flow_2d",
+    "flow_3d"
+  ],
+  "properties": [
+    {
+      "name": "show",
+      "data_type": "bool",
+      "socket_type": "input"
+    },
+    {
+      "name": "app_name",
+      "data_type": "string",
+      "socket_type": "input"
+    },
+    {
+      "name": "summary",
+      "data_type": "string",
+      "socket_type": "input"
+    },
+    {
+      "name": "body",
+      "data_type": "string",
+      "socket_type": "input"
+    },
+    {
+      "name": "icon",
+      "data_type": "string",
+      "socket_type": "input"
+    },
+    {
+      "name": "timeout",
+      "data_type": "number",
+      "socket_type": "input"
+    }
+  ],
+  "extensions": [
+    {
+      "name": "palette",
+      "extension": {
+        "content": "Desktop Notification",
+        "styles":  {
+          "font-size": "12px",
+          "font-family": "Fira Code",
+          "padding": "5px"
+        }
+      }
+    },
+    {
+      "name": "shape",
+      "extension": {
+        "width": 200,
+        "socket": {
+          "width": 60,
+          "height": 30,
+          "offset": 5
+        },
+        "offset": {
+          "top": "socket.height",
+          "bottom": "socket.height"
+        },
+        "elements": {
+          "title": {
+            "show": true,
+            "type": "text",
+            "content": "element.description",
+            "position": {
+              "left": 0,
+              "top": 0,
+              "width": "shape.width",
+              "height": "socket.height"
+            },
+            "styles": {
+              "font-size": "12px",
+              "fill": "black"
+            }
+          },
+          "symbol": {
+            "show": true,
+            "type": "text",
+            "content": "Desktop Notification",
+            "position": {
+              "left": 0,
+              "top": 0,
+              "width": "shape.width",
+              "height": "shape.height"
+            },
+            "styles": {
+              "font-family": "Fira Code",
+              "font-size": "40px",
+              "fill": "fuchsia"
+            }
+          },
+          "id": {
+            "show": true,
+            "type": "text",
+            "content": "shape.id",
+            "position": {
+              "left": 0,
+              "top": "shape.height-socket.height",
+              "width": "shape.width",
+              "height": "socket.height"
+            },
+            "styles": {
+              "font-size": "9px",
+              "fill": "black"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "dublin-core",
+      "extension":{
+        "title": "Desktop Notification",
+        "subject": "Desktop Notification",
+        "creator": "Hanack"
+      }
+    }
+  ]
+}

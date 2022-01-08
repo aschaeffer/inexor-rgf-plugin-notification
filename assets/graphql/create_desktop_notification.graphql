@@ -1,0 +1,33 @@
+mutation {
+  instances {
+    entities {
+      create(
+        typeName: "desktop_notification",
+        id: "dfe30808-9242-4af8-aced-556ffe617038",
+        properties: [
+          {
+            name: "show",
+            value: false
+          },
+          {
+            name: "body",
+            value: "Test"
+          }
+        ]
+      ) {
+        id,
+        type {name},
+        properties(
+          names: [
+            "show",
+            "app_name",
+            "summary",
+            "body",
+            "icon",
+            "timeout"
+          ]
+        )
+      }
+    }
+  }
+}

@@ -1,0 +1,44 @@
+mutation {
+  instances {
+    entities {
+      update(
+        id: "dfe30808-9242-4af8-aced-556ffe617038",
+        properties: [
+          {
+            name: "show",
+            value: true
+          },
+          {
+            name: "summary",
+            value: "Important Message"
+          },
+          {
+            name: "body",
+            value: "Lorem Ipsum"
+          },
+          {
+            name: "icon",
+            value: "computer"
+          },
+          {
+            name: "timeout",
+            value: 1000
+          }
+        ]
+      ) {
+        id,
+        type {name},
+        properties(
+          names: [
+            "show",
+            "app_name",
+            "summary",
+            "body",
+            "icon",
+            "timeout"
+          ]
+        )
+      }
+    }
+  }
+}
