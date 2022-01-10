@@ -11,9 +11,6 @@ license = "MIT"
 [dependencies]
 async-trait = "0.1"
 async-std = { version = "1.10", features = ["tokio1"] }
-#crossbeam = "0.8"
-#futures = "0.3"
-#futures-timer = "3.0"
 indradb-lib = "1"
 log = { version = "0.4", features = ["std", "serde"] }
 log4rs = { version = "1.0", features = ["console_appender", "file_appender"]}
@@ -31,7 +28,6 @@ waiter_di = { version = "1.6.4", features = [ "async" ], git = "https://github.c
 inexor-rgf-core-model = { git = "https://github.com/aschaeffer/inexor-rgf-core-model.git" }
 inexor-rgf-core-reactive = { git = "https://github.com/aschaeffer/inexor-rgf-core-reactive.git" }
 inexor-rgf-core-plugins = { git = "https://github.com/aschaeffer/inexor-rgf-core-plugins.git" }
-inexor-rgf-core-builder = { git = "https://github.com/aschaeffer/inexor-rgf-core-builder.git" }
 
 [lib]
 # Plugins use crate-type cdylib
