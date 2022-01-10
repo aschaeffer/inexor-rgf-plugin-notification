@@ -20,11 +20,6 @@ pub struct DesktopNotification {
     pub notification: Arc<RwLock<Notification>>,
 
     pub property_handles: HashMap<DesktopNotificationProperties, u128>,
-    // pub show_handle_id: u128,
-    // pub summary_handle_id: u128,
-    // pub body_handle_id: u128,
-    // pub icon_handle_id: u128,
-    // pub timeout_handle_id: u128,
 }
 
 impl DesktopNotification {
@@ -35,12 +30,6 @@ impl DesktopNotification {
             return Err(BehaviourCreationError.into());
         }
         let show = show.unwrap().as_bool().unwrap_or(false);
-        // Initial values
-        // let app_name = ;
-        // let summary = ;
-        // let body = get_value_or_default(e.clone(), DesktopNotificationProperties::BODY).as_str().unwrap();
-        // let icon = get_value_or_default(e.clone(), DesktopNotificationProperties::ICON).as_str().unwrap();
-        // let timeout = get_value_or_default(e.clone(), DesktopNotificationProperties::TIMEOUT).as_i64().unwrap();
 
         let notification = Notification::new()
             .appname(get_value_or_default(e.clone(), DesktopNotificationProperties::APP_NAME).as_str().unwrap())
@@ -57,26 +46,6 @@ impl DesktopNotification {
 
         let mut property_handles = HashMap::new();
 
-        // let show_notification = notification.clone();
-        // let show_handle_id = e.properties.get(DesktopNotificationProperties::SHOW.as_ref()).unwrap().id.as_u128();
-        // e.properties
-        //     .get(DesktopNotificationProperties::SHOW.as_ref())
-        //     .unwrap()
-        //     .stream
-        //     .read()
-        //     .unwrap()
-        //     .observe_with_handle(
-        //         move |v: &Value| {
-        //             if !v.is_boolean() {
-        //                 return;
-        //             }
-        //             let show = v.as_bool().unwrap();
-        //             if show {
-        //                 show_notification.read().unwrap().show();
-        //             }
-        //         },
-        //         show_handle_id,
-        //     );
         let handle_id = handle_property(DesktopNotificationProperties::SHOW, e.clone(), notification.clone(), move |v, notification| {
             if !v.is_boolean() {
                 return;
@@ -128,87 +97,10 @@ impl DesktopNotification {
             }),
         );
 
-        // let summary_notification = notification.clone();
-        // let summary_handle_id = e.properties.get(DesktopNotificationProperties::SUMMARY.as_ref()).unwrap().id.as_u128();
-        // e.properties
-        //     .get(DesktopNotificationProperties::SUMMARY.as_ref())
-        //     .unwrap()
-        //     .stream
-        //     .read()
-        //     .unwrap()
-        //     .observe_with_handle(
-        //         move |v: &Value| {
-        //             if !v.is_string() {
-        //                 return;
-        //             }
-        //             summary_notification.write().unwrap().icon(v.as_str().unwrap());
-        //         },
-        //         summary_handle_id,
-        //     );
-        //
-        // let body_notification = notification.clone();
-        // let body_handle_id = e.properties.get(DesktopNotificationProperties::BODY.as_ref()).unwrap().id.as_u128();
-        // e.properties
-        //     .get(DesktopNotificationProperties::BODY.as_ref())
-        //     .unwrap()
-        //     .stream
-        //     .read()
-        //     .unwrap()
-        //     .observe_with_handle(
-        //         move |v: &Value| {
-        //             if !v.is_string() {
-        //                 return;
-        //             }
-        //             body_notification.write().unwrap().body(v.as_str().unwrap());
-        //         },
-        //         body_handle_id,
-        //     );
-        //
-        // let icon_notification = notification.clone();
-        // let icon_handle_id = e.properties.get(DesktopNotificationProperties::ICON.as_ref()).unwrap().id.as_u128();
-        // e.properties
-        //     .get(DesktopNotificationProperties::ICON.as_ref())
-        //     .unwrap()
-        //     .stream
-        //     .read()
-        //     .unwrap()
-        //     .observe_with_handle(
-        //         move |v: &Value| {
-        //             if !v.is_string() {
-        //                 return;
-        //             }
-        //             icon_notification.write().unwrap().icon(v.as_str().unwrap());
-        //         },
-        //         icon_handle_id,
-        //     );
-        //
-        // let timeout_notification = notification.clone();
-        // let timeout_handle_id = e.properties.get(DesktopNotificationProperties::TIMEOUT.as_ref()).unwrap().id.as_u128();
-        // e.properties
-        //     .get(DesktopNotificationProperties::TIMEOUT.as_ref())
-        //     .unwrap()
-        //     .stream
-        //     .read()
-        //     .unwrap()
-        //     .observe_with_handle(
-        //         move |v: &Value| {
-        //             if !v.is_string() {
-        //                 return;
-        //             }
-        //             timeout_notification.write().unwrap().icon(v.as_str().unwrap());
-        //         },
-        //         timeout_handle_id,
-        //     );
-
         Ok(DesktopNotification {
             entity: e.clone(),
             notification,
-            property_handles
-            // show_handle_id,
-            // summary_handle_id,
-            // body_handle_id,
-            // icon_handle_id,
-            // timeout_handle_id,
+            property_handles,
         })
     }
 
@@ -230,11 +122,6 @@ impl Disconnectable for DesktopNotification {
         for (property_name, handle_id) in self.property_handles.iter() {
             self.disconnect_property(property_name.as_ref(), *handle_id);
         }
-        // self.disconnect_property(DesktopNotificationProperties::SHOW.as_ref(), self.show_handle_id);
-        // self.disconnect_property(DesktopNotificationProperties::SUMMARY.as_ref(), self.summary_handle_id);
-        // self.disconnect_property(DesktopNotificationProperties::BODY.as_ref(), self.body_handle_id);
-        // self.disconnect_property(DesktopNotificationProperties::ICON.as_ref(), self.icon_handle_id);
-        // self.disconnect_property(DesktopNotificationProperties::TIMEOUT.as_ref(), self.timeout_handle_id);
     }
 }
 
@@ -248,6 +135,7 @@ impl Drop for DesktopNotification {
 fn get_value_or_default(entity: Arc<ReactiveEntityInstance>, property: DesktopNotificationProperties) -> Value {
     entity.get(property.as_ref()).unwrap_or(property.default_value())
 }
+
 fn handle_property(
     property: DesktopNotificationProperties,
     entity: Arc<ReactiveEntityInstance>,
