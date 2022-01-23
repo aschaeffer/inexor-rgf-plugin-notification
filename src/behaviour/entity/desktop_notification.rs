@@ -41,7 +41,7 @@ impl DesktopNotification {
         let notification = Arc::new(RwLock::new(notification));
 
         if show {
-            notification.read().unwrap().show();
+            let _result = notification.read().unwrap().show();
         }
 
         let mut property_handles = HashMap::new();
@@ -52,7 +52,7 @@ impl DesktopNotification {
             }
             let show = v.as_bool().unwrap();
             if show {
-                notification.read().unwrap().show();
+                let _result = notification.read().unwrap().show();
             }
         });
         property_handles.insert(DesktopNotificationProperties::SHOW, handle_id);
