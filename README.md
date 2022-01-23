@@ -48,9 +48,11 @@ The plugin creates desktop notifications.
 
 #### Platform Compatibility
 
-* https://github.com/hoodie/notify-rust#linuxbsd-support
-* https://github.com/hoodie/notify-rust#macos-support
-* https://github.com/hoodie/notify-rust#windows-support
+| Platform | Compatibility | Notes                                                  |
+|----------|---------------|--------------------------------------------------------|
+| Linux    | ✓             | https://github.com/hoodie/notify-rust#linuxbsd-support |
+| MacOS    | ✓             | https://github.com/hoodie/notify-rust#macos-support    |
+| Windows  | ✓             | https://github.com/hoodie/notify-rust#windows-support  |
 
 #### Entity Types
 
