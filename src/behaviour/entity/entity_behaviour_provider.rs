@@ -1,9 +1,9 @@
 use std::sync::Arc;
 
+use crate::di::*;
 use async_trait::async_trait;
 use log::debug;
 use uuid::Uuid;
-use waiter_di::*;
 
 use crate::behaviour::entity::desktop_notification::DesktopNotification;
 use crate::behaviour::entity::desktop_notification::DESKTOP_NOTIFICATION;
@@ -13,7 +13,7 @@ use crate::plugins::EntityBehaviourProvider;
 #[wrapper]
 pub struct DesktopNotificationStorage(std::sync::RwLock<std::collections::HashMap<Uuid, std::sync::Arc<DesktopNotification>>>);
 
-#[waiter_di::provides]
+#[provides]
 fn create_desktop_notification_storage() -> DesktopNotificationStorage {
     DesktopNotificationStorage(std::sync::RwLock::new(std::collections::HashMap::new()))
 }
