@@ -37,7 +37,10 @@ mutation {
             "icon",
             "timeout"
           ]
-        )
+        ) {
+          name
+          value
+        }
       }
     }
   }

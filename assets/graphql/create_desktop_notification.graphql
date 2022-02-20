@@ -2,7 +2,7 @@ mutation {
   instances {
     entities {
       create(
-        typeName: "desktop_notification",
+        type: "desktop_notification",
         id: "dfe30808-9242-4af8-aced-556ffe617038",
         properties: [
           {
@@ -26,7 +26,10 @@ mutation {
             "icon",
             "timeout"
           ]
-        )
+        ) {
+          name
+          value
+        }
       }
     }
   }
