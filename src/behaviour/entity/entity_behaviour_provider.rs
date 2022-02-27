@@ -48,16 +48,18 @@ impl NotificationEntityBehaviourProviderImpl {
 impl NotificationEntityBehaviourProvider for NotificationEntityBehaviourProviderImpl {
     fn create_desktop_notification(&self, entity_instance: Arc<ReactiveEntityInstance>) {
         let id = entity_instance.id;
-        let device_key = DesktopNotification::new(entity_instance);
+        let device_key = DesktopNotification::new(entity_instance.clone());
         if device_key.is_ok() {
             let desktop_notification = Arc::new(device_key.unwrap());
             self.desktop_notification.0.write().unwrap().insert(id, desktop_notification);
+            entity_instance.add_behaviour(DESKTOP_NOTIFICATION);
             debug!("Added behaviour {} to entity instance {}", DESKTOP_NOTIFICATION, id);
         }
     }
 
     fn remove_desktop_notification(&self, entity_instance: Arc<ReactiveEntityInstance>) {
         self.desktop_notification.0.write().unwrap().remove(&entity_instance.id);
+        entity_instance.remove_behaviour(DESKTOP_NOTIFICATION);
         debug!("Removed behaviour {} from entity instance {}", DESKTOP_NOTIFICATION, entity_instance.id);
     }
 
